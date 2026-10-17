@@ -27,4 +27,8 @@ class TaskViewModel(
             list + Task(id = nextId, title = title.trim())
         }
     }
+
+    fun deleteTask(taskId: Int) {
+        _tasks.update { list -> list.filterNot { it.id == taskId } }
+    }
 }

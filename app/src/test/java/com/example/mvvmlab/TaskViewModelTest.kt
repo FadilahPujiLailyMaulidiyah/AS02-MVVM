@@ -39,4 +39,19 @@ class TaskViewModelTest {
         viewModel.addTask(" ")
         assertEquals(2, viewModel.tasks.value.size)
     }
+    @Test
+    fun deleteTask_removesTask() {
+        val viewModel = TaskViewModel(FakeRepository())
+        viewModel.deleteTask(1)
+        assertEquals(1, viewModel.tasks.value.size)
+        assertTrue(viewModel.tasks.value.none { it.id == 1 })
+    }
+
+    @Test
+    fun deleteAllTasks_leavesEmptyList() {
+        val viewModel = TaskViewModel(FakeRepository())
+        viewModel.deleteTask(1)
+        viewModel.deleteTask(2)
+        assertTrue(viewModel.tasks.value.isEmpty())
+    }
 }

@@ -53,6 +53,9 @@ fun TaskScreen(viewModel: TaskViewModel = viewModel()) {
             }
         }
         Column(Modifier.padding(top = 16.dp)) {
+            if (tasks.isEmpty()) {
+                Text("No tasks yet")
+            }
             tasks.forEach { task ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -62,7 +65,10 @@ fun TaskScreen(viewModel: TaskViewModel = viewModel()) {
                         checked = task.done,
                         onCheckedChange = { viewModel.toggleDone(task.id) }
                     )
-                    Text(task.title)
+                    Text(task.title, modifier = Modifier.weight(1f))
+                    Button(onClick = { viewModel.deleteTask(task.id) }) {
+                        Text("Delete")
+                    }
                 }
             }
         }
