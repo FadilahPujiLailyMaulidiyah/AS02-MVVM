@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Alignment
+import androidx.compose.runtime.saveable.rememberSaveable
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,7 @@ fun TaskScreen(viewModel: TaskViewModel = viewModel()) {
 // Read state. Recomposes when tasks change.
     val tasks by viewModel.tasks.collectAsStateWithLifecycle()
 // Purely UI state: text being typed. This does NOT belong in the ViewModel.
-    var newTitle by remember { mutableStateOf("") }
+    var newTitle by rememberSaveable { mutableStateOf("") }
     Column(Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             OutlinedTextField(
